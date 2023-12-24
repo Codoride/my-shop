@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import ItemList from './components/ItemList';
+import AddItem from './components/AddItem';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 function App() {
+  const [token, setToken] = useState('');
+
+  const handleLogin = (newToken) => {
+    setToken(newToken);
+  };
+
+  const handleSignup = () => {
+    // Handle signup completion, e.g., switch to the login form
+    console.log('Signup complete');
+  };
+
+  const handleAddItem = (item) => {
+    // Handle adding item, you can update the state or perform other actions
+    console.log('Item added:', item);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>My Shop</h1>
+      {token ? (
+        <>
+          <AddItem onAdd={handleAddItem}/>
+          <ItemList />
+        </>
+      ) : (
+        <>
+          <Login onLogin={handleLogin} />
+          <Signup onSignup={handleSignup} />
+        </>
+      )}
     </div>
   );
 }
